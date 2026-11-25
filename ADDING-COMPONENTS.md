@@ -76,3 +76,10 @@ npm run build
 ```
 
 If it passes, the component is ready.
+
+## Components with images or videos
+
+Put the files in `public/showcase/<slug>/assets/` and refer to them as `assets/<file>` in the
+HTML/CSS/JS (exactly as in a normal folder). Add `assets: true` to `meta.ts`; the preview then loads
+them from the right place. Use `stage: 'fill'` for full-width sections (sliders, heroes).
+Keep images small: about 1400 px wide, JPEG.

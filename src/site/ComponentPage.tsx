@@ -119,6 +119,7 @@ export default function ComponentPage() {
           src={lang === 'react' && !entry.Component ? entry.previewUrl : undefined}
           stage={entry.stage}
           title={`${entry.name} preview`}
+          trusted={entry.source === 'builtin'}
         />
       )}
 

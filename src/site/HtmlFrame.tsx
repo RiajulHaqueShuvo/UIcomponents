@@ -12,6 +12,13 @@ interface HtmlFrameProps {
    * postMessage({ type: 'uic:props', props }) on load and whenever they change.
    */
   props?: Record<string, unknown>;
+  /**
+   * Our own built-in library code (from src/library, reviewed and shipped with the site).
+   * Only then the frame also gets allow-same-origin, so it can load its images and
+   * videos: some browsers block every request from a fully sandboxed frame.
+   * Never set this for uploaded code.
+   */
+  trusted?: boolean;
 }
 
 /**
@@ -24,7 +31,7 @@ interface HtmlFrameProps {
  * embedded webviews refuse to navigate sandboxed frames, and this way the
  * result is the same everywhere.
  */
-export default function HtmlFrame({ srcdoc, src, title, lazy = false, props }: HtmlFrameProps) {
+export default function HtmlFrame({ srcdoc, src, title, lazy = false, props, trusted = false }: HtmlFrameProps) {
   const [fetched, setFetched] = useState<string | null>(null);
   const [failed, setFailed] = useState(false);
   const [loaded, setLoaded] = useState(false);
@@ -66,7 +73,7 @@ export default function HtmlFrame({ srcdoc, src, title, lazy = false, props }: H
       className="html-frame"
       title={title}
       srcDoc={doc}
-      sandbox="allow-scripts"
+      sandbox={trusted && srcdoc !== undefined ? 'allow-scripts allow-same-origin' : 'allow-scripts'}
       loading={lazy ? 'lazy' : 'eager'}
       onLoad={() => setLoaded(true)}
     />

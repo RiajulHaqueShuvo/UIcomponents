@@ -237,8 +237,37 @@ Admin, uploads and docs stay for the Node version (Render/Netlify setup kept, un
   no errors besides the two intended 404 pages.
 - Note: a public repo makes the code readable; the Pro demo unlock was already browser-only.
 
+### 2026-11-25 — Old work imported (UI-component- repo, Day 1-18)
+User asked to pause the GitHub Pages work and bring in the old repo
+(github.com/RiajulHaqueShuvo/UI-component-). It held 18 plain HTML/CSS/JS projects + ~130 MB of images/videos.
+- All 18 are now built-in HTML components (library 27 → 45). New category **Sliders & Galleries**
+  (`galleries`, 16 items); Timeline Cards and Folder Cards went to Cards. Category id added to
+  `CategoryId`, `CATEGORIES`, `siteDefaults` and the server's `CATEGORY_IDS`.
+- Files normalised to `html/index.html`, `style.css`, `script.js` (links rewritten); code otherwise
+  as written. meta.ts per component: name, description, `isNew`, `stage: 'fill'`, `assets: true`.
+- Assets → `public/showcase/<slug>/assets/` (12 components). Photos resized to max 1400 px, JPEG q80
+  (opaque PNGs became .jpg, references updated); videos re-encoded 720p H.264 without sound.
+  130 MB → 23 MB.
+- New `assets` meta flag: the preview points `assets/…` paths at `<BASE>/showcase/<slug>/assets/`
+  (srcdoc has no folder of its own). The Code tab keeps the original relative paths.
+- Fixes in the old code: Window Effect looked in `../assets/` (wrong folder); Domino Dawn used
+  `images/look1-5.jpg`, which never existed (now 5 of its own photos); Pegline drew `-Infinity` paths
+  while 0 px wide (guard added).
+- Preview fixes found while testing:
+  - Built-in (trusted) HTML previews get `allow-same-origin`: the embedded browser blocked every
+    request (even the favicon) from fully sandboxed frames, so images never loaded. Uploaded code
+    stays `allow-scripts` only.
+  - `stage: 'fill'` HTML previews use normal page flow (`body { display:block; place-items:normal }`):
+    the centring grid shrank full-width sections such as Pegline to 0 px. Also applied to uploaded
+    components and the admin live preview.
+- Tests: typecheck + build; all 18 opened in the browser: every listed image/video loads (videos
+  served 200), no script errors, no zero-width sections; screenshots of Slant Deck, Menagerie
+  Stretch, Window Effect, Aperture Reel, Orbit Gallery, Chromadrift, Cascade Deck, Pegline.
+- Note: main bundle grew to ~717 kB (all component sources are bundled); split it later.
+
 ## Next up (pick from ROADMAP.md)
-- Make the repo public + enable Pages (ADMIN.md §4b), then submit the sitemap to Google
+- GitHub Pages: paused by the user (Actions looked disabled on the repo)
+- Review names/descriptions of the 18 imported components; consider lazy-loading component sources
 - Later, for admin online: Render (+ optional Netlify, §5/§5b)
 - Change the temporary local admin password, then add real content
 - Open Graph share image, backups of the Render disk

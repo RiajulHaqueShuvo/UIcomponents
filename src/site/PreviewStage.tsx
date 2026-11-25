@@ -14,6 +14,8 @@ interface PreviewStageProps {
   /** Changing this remounts the component. */
   remountKey?: string;
   title?: string;
+  /** Built-in library code (see HtmlFrame). */
+  trusted?: boolean;
 }
 
 export default function PreviewStage({
@@ -24,6 +26,7 @@ export default function PreviewStage({
   props,
   remountKey = '',
   title = 'Component preview',
+  trusted = false,
 }: PreviewStageProps) {
   // Changing the key remounts the component, which replays its intro animation.
   const [runId, setRunId] = useState(0);
@@ -39,7 +42,7 @@ export default function PreviewStage({
   } else if (srcdoc !== undefined || src) {
     body = (
       <div className="stage__inner stage__inner--frame" key={key}>
-        <HtmlFrame srcdoc={srcdoc} src={src} title={title} props={props} />
+        <HtmlFrame srcdoc={srcdoc} src={src} title={title} props={props} trusted={trusted} />
       </div>
     );
   } else {

@@ -147,7 +147,7 @@ export default function ComponentEditor() {
   /* ---------- Preview ---------- */
   const runPreview = useCallback(async () => {
     if (previewLang === 'html') {
-      setPreview(form.html.trim() ? { srcdoc: buildSrcdoc(form.html, form.htmlCss, form.htmlJs) } : { error: 'Add HTML in index.html to preview it.' });
+      setPreview(form.html.trim() ? { srcdoc: buildSrcdoc(form.html, form.htmlCss, form.htmlJs, { fill: form.stage === 'fill' }) } : { error: 'Add HTML in index.html to preview it.' });
       return;
     }
     if (!form.reactTsx.trim()) {

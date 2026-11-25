@@ -35,6 +35,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     backgrounds: { label: 'Backgrounds', description: 'Animated full-section backdrops.' },
     buttons: { label: 'Buttons', description: 'Buttons with hover and click effects.' },
     cards: { label: 'Cards', description: 'Interactive and styled card layouts.' },
+    galleries: { label: 'Sliders & Galleries', description: 'Image sliders, carousels and photo galleries.' },
     ui: { label: 'UI Components', description: 'Everyday widgets with polished motion.' },
   },
 };

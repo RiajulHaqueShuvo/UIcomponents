@@ -115,6 +115,11 @@ Steps
 - ⏳ Next: Open Graph share image, multiple admin users/roles, audit log, automatic backups, image resizing/thumbnails,
   real Pro payments (Phase 4b) on top of this backend
 
+## Phase 2b — Old work imported (✅ 2026-11-25)
+- ✅ 18 HTML/CSS/JS components from the old UI-component- repo; new Sliders & Galleries category
+- ✅ Image/video assets per component, compressed (130 MB → 23 MB)
+- ⏳ Split the bundle (component sources load per page)
+
 ## Phase 5 — More content (⏳)
 - New categories: Navbars, Heroes, Forms, Loaders, Modals, Testimonials, Footers
 - Tailwind versions of each component (second code tab)

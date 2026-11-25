@@ -1,6 +1,6 @@
 import type { ComponentType } from 'react';
 
-export type CategoryId = 'text' | 'animations' | 'backgrounds' | 'buttons' | 'cards' | 'ui';
+export type CategoryId = 'text' | 'animations' | 'backgrounds' | 'buttons' | 'cards' | 'galleries' | 'ui';
 
 export interface Category {
   id: CategoryId;
@@ -38,6 +38,11 @@ export interface ComponentMeta {
   isNew?: boolean;
   /** 'fill' lets backgrounds take the whole preview box; default is centred. */
   stage?: 'center' | 'fill';
+  /**
+   * The HTML version loads files from an `assets/` folder (images, videos). They live in
+   * public/showcase/<slug>/assets/, and the preview points `assets/…` paths there.
+   */
+  assets?: boolean;
   /** Options shown in the Customize tab (React version). Defaults must match the component's own defaults. */
   controls?: Control[];
 }

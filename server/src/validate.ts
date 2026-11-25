@@ -1,6 +1,6 @@
 import { HttpError } from './http.ts';
 
-export const CATEGORY_IDS = ['text', 'animations', 'backgrounds', 'buttons', 'cards', 'ui'] as const;
+export const CATEGORY_IDS = ['text', 'animations', 'backgrounds', 'buttons', 'cards', 'galleries', 'ui'] as const;
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 

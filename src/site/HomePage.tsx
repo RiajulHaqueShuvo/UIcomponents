@@ -46,7 +46,7 @@ export default function HomePage() {
                 <p>{cat.description}</p>
               </header>
               <div className="gallery__grid">
-                {items.map(({ slug, name, description, Component, srcdoc, previewUrl, stage, isNew, variants }) => (
+                {items.map(({ slug, name, description, Component, srcdoc, previewUrl, stage, isNew, variants, source }) => (
                   <Link key={slug} to={`/components/${slug}`} className="tile">
                     <div className={`tile__preview tile__preview--${stage ?? 'center'}`} aria-hidden="true" inert>
                       <div className="tile__scale">
@@ -55,7 +55,7 @@ export default function HomePage() {
                         ) : previewUrl ? (
                           <HtmlFrame src={previewUrl} title={name} lazy />
                         ) : (
-                          srcdoc !== undefined && <HtmlFrame srcdoc={srcdoc} title={name} lazy />
+                          srcdoc !== undefined && <HtmlFrame srcdoc={srcdoc} title={name} lazy trusted={source === 'builtin'} />
                         )}
                       </div>
                     </div>

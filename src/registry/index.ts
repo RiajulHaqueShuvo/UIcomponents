@@ -67,7 +67,11 @@ function buildEntry(metaPath: string, meta: ComponentMeta): RegistryEntry {
       if (code !== undefined) files.push({ filename: f.name, language: f.language, code });
     }
     variants.push({ language: 'html', files });
-    srcdoc = buildSrcdoc(html, htmlSources[`${dir}/html/style.css`], htmlSources[`${dir}/html/script.js`]);
+    const assetBase = meta.assets ? `${import.meta.env.BASE_URL}showcase/${meta.slug}/` : undefined;
+    srcdoc = buildSrcdoc(html, htmlSources[`${dir}/html/style.css`], htmlSources[`${dir}/html/script.js`], {
+      assetBase,
+      fill: meta.stage === 'fill',
+    });
   }
 
   if (variants.length === 0) {

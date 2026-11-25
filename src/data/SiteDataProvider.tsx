@@ -41,7 +41,7 @@ export function fromServer(c: ServerComponent): RegistryEntry {
     props: c.props ?? undefined,
     controls: c.controls ?? undefined,
     variants,
-    srcdoc: c.html ? buildSrcdoc(c.html.html, c.html.css ?? '', c.html.js ?? '') : undefined,
+    srcdoc: c.html ? buildSrcdoc(c.html.html, c.html.css ?? '', c.html.js ?? '', { fill: c.stage === 'fill' }) : undefined,
     previewUrl: c.react && c.compiled ? `/api/public/preview/${encodeURIComponent(c.slug)}` : undefined,
   };
 }
