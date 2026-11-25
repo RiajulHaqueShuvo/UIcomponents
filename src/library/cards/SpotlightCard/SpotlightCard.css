@@ -1,0 +1,68 @@
+.spotlight-card {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  position: relative;
+  width: 320px;
+  padding: 28px;
+  border-radius: 20px;
+  text-align: left;
+  background: #0d0d14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* The light inside the card. */
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(400px circle at var(--spot-x) var(--spot-y), var(--spot-color), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+/* The glowing border near the cursor. */
+.spotlight-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(240px circle at var(--spot-x) var(--spot-y), rgba(255, 255, 255, 0.45), transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.spotlight-card:hover::before,
+.spotlight-card:hover::after {
+  opacity: 1;
+}
+
+.spotlight-card__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(167, 139, 250, 0.15);
+  font-size: 20px;
+}
+
+.spotlight-card__title {
+  margin: 18px 0 6px;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.spotlight-card__text {
+  margin: 0;
+  color: #a1a1aa;
+  font-size: 14px;
+  line-height: 1.6;
+}

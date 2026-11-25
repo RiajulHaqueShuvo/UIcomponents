@@ -1,0 +1,61 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggle--disabled {
+  opacity: 0.45;
+}
+
+.toggle__track {
+  position: relative;
+  width: 52px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #3f3f46;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle__track:disabled {
+  cursor: not-allowed;
+}
+
+.toggle__track--on {
+  background: linear-gradient(90deg, #7c3aed, #38bdf8);
+}
+
+.toggle__thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.2s;
+}
+
+/* Slight stretch while pressing, like iOS. */
+.toggle__track:active .toggle__thumb {
+  width: 30px;
+}
+
+.toggle__track--on .toggle__thumb {
+  transform: translateX(22px);
+}
+
+.toggle__track--on:active .toggle__thumb {
+  transform: translateX(16px);
+}
+
+.toggle__label {
+  color: #e4e4e7;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+}

@@ -1,0 +1,80 @@
+.tilt-card__scene {
+  perspective: 900px;
+}
+
+.tilt-card {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --glare-x: 50%;
+  --glare-y: 50%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+.tilt-card:not(:hover) {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tilt-card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--glare-x) var(--glare-y),
+    rgba(255, 255, 255, 0.35),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  mix-blend-mode: overlay;
+}
+
+.tilt-card:hover .tilt-card__glare {
+  opacity: 1;
+}
+
+/* Demo content: a credit card */
+.tilt-card__demo {
+  width: 340px;
+  height: 210px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  color: #fff;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.6), transparent 45%),
+    linear-gradient(135deg, #4c1d95, #1e1b4b 60%, #0f172a);
+}
+
+.tilt-card__chip {
+  width: 42px;
+  height: 32px;
+  border-radius: 7px;
+  background: linear-gradient(135deg, #fde68a, #d97706);
+}
+
+.tilt-card__label {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.tilt-card__name {
+  margin: 2px 0 0;
+  font-weight: 600;
+}
+
+.tilt-card__number {
+  margin: 0;
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.12em;
+}

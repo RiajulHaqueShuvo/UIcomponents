@@ -1,0 +1,42 @@
+.fill-button {
+  --fill-x: 50%;
+  --fill-y: 50%;
+  position: relative;
+  overflow: hidden;
+  padding: 14px 34px;
+  border: 1.5px solid #e4e4e7;
+  border-radius: 999px;
+  background: transparent;
+  color: #e4e4e7;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.4s;
+}
+
+.fill-button::before {
+  content: '';
+  position: absolute;
+  left: var(--fill-x);
+  top: var(--fill-y);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: #e4e4e7;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.fill-button:hover {
+  color: #0b0b0f;
+}
+
+.fill-button:hover::before {
+  width: 500px;
+  height: 500px;
+}
+
+.fill-button__label {
+  position: relative;
+  z-index: 1;
+}

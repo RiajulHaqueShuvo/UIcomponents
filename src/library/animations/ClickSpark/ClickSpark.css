@@ -1,0 +1,54 @@
+.click-spark {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: grid;
+  place-items: center;
+  cursor: crosshair;
+  user-select: none;
+}
+
+.click-spark__hint {
+  color: #a1a1aa;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.click-spark__burst {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Each <i> is a rotated arm; its ::before is the line that flies outward. */
+.click-spark__burst i {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 2px;
+  height: calc(var(--spark-size) * 2.6);
+  transform-origin: 50% 0;
+}
+
+.click-spark__burst i::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: var(--spark-size);
+  border-radius: 2px;
+  background: var(--spark-color);
+  animation: click-spark-fly var(--spark-duration) ease-out forwards;
+}
+
+@keyframes click-spark-fly {
+  from {
+    transform: translateY(4px) scaleY(1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(calc(var(--spark-size) * 1.6)) scaleY(0);
+    opacity: 0;
+  }
+}

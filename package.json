@@ -1,0 +1,37 @@
+{
+  "name": "uicomponents",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:all": "node scripts/dev.mjs",
+    "server": "node server/src/index.ts",
+    "start": "node server/src/index.ts",
+    "admin:create": "node server/scripts/create-admin.ts",
+    "new": "node scripts/new-component.mjs",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p server",
+    "build": "tsc --noEmit && tsc --noEmit -p server && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "dompurify": "^3.5.0",
+    "esbuild": "^0.28.2",
+    "marked": "^16.4.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.18.7",
+    "sugar-high": "^0.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.3",
+    "@types/react": "^19.3.1",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

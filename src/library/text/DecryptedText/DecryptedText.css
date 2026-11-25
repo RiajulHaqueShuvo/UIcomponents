@@ -1,0 +1,8 @@
+.decrypted-text {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 500;
+  color: #34d399;
+  cursor: default;
+  letter-spacing: 0.02em;
+}

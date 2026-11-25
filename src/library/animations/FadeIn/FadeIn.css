@@ -1,0 +1,29 @@
+.fade-in {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translate3d(var(--fade-x), var(--fade-y), 0);
+  transition-property: opacity, transform, filter;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade-in--visible {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+.fade-in__demo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 24px 32px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #a1a1aa;
+}
+
+.fade-in__demo strong {
+  color: #fff;
+  font-size: 1.2rem;
+}

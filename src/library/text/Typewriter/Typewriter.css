@@ -1,0 +1,24 @@
+.typewriter {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #e4e4e7;
+  margin: 0;
+}
+
+.typewriter__word {
+  color: #a78bfa;
+}
+
+.typewriter__cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 4px;
+  vertical-align: -0.12em;
+  background: #a78bfa;
+  animation: typewriter-blink 1s steps(1) infinite;
+}
+
+@keyframes typewriter-blink {
+  50% { opacity: 0; }
+}

@@ -1,0 +1,19 @@
+.magnet {
+  display: inline-block;
+  will-change: transform;
+  /* Slow, springy return when the cursor leaves. */
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.magnet--active {
+  transition: transform 0.2s ease-out;
+}
+
+.magnet__demo {
+  padding: 22px 34px;
+  border-radius: 16px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  box-shadow: 0 20px 40px -12px rgba(124, 58, 237, 0.6);
+}

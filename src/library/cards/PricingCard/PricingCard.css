@@ -1,0 +1,115 @@
+@property --pricing-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.pricing-card {
+  width: 320px;
+  padding: 1px;
+  border-radius: 22px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pricing-card--featured {
+  background: conic-gradient(from var(--pricing-angle), transparent 60%, #a78bfa, #38bdf8, transparent 90%);
+  animation: pricing-card-spin 4s linear infinite;
+  box-shadow: 0 30px 70px -30px rgba(167, 139, 250, 0.6);
+}
+
+.pricing-card__body {
+  padding: 28px;
+  border-radius: 21px;
+  background: #0c0c13;
+  color: #e4e4e7;
+}
+
+.pricing-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pricing-card__plan {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.pricing-card__badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #c4b5fd;
+  background: rgba(167, 139, 250, 0.15);
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.pricing-card__price {
+  margin: 18px 0 6px;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #fff;
+  line-height: 1;
+}
+
+.pricing-card__price span {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #71717a;
+}
+
+.pricing-card__desc {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #a1a1aa;
+}
+
+.pricing-card__features {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 20px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.pricing-card__features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pricing-card__features svg {
+  color: #34d399;
+  flex-shrink: 0;
+}
+
+.pricing-card__cta {
+  width: 100%;
+  padding: 12px;
+  border: 0;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  color: #0b0b0f;
+  background: #fff;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.pricing-card__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes pricing-card-spin {
+  to {
+    --pricing-angle: 360deg;
+  }
+}

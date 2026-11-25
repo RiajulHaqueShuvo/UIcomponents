@@ -1,0 +1,66 @@
+.glass-card__wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.glass-card__backdrop span {
+  position: absolute;
+  border-radius: 50%;
+  animation: glass-card-float 6s ease-in-out infinite alternate;
+}
+
+.glass-card__backdrop span:nth-child(1) {
+  width: 160px;
+  height: 160px;
+  top: -50px;
+  left: -60px;
+  background: linear-gradient(135deg, #f472b6, #a855f7);
+}
+
+.glass-card__backdrop span:nth-child(2) {
+  width: 130px;
+  height: 130px;
+  bottom: -40px;
+  right: -50px;
+  background: linear-gradient(135deg, #38bdf8, #22d3ee);
+  animation-delay: -3s;
+}
+
+.glass-card {
+  position: relative;
+  width: 300px;
+  padding: 28px;
+  border-radius: 22px;
+  text-align: left;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-card__eyebrow {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.glass-card__temp {
+  margin: 6px 0;
+  font-size: 4rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.glass-card__desc {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+@keyframes glass-card-float {
+  to {
+    transform: translate(16px, 12px) scale(1.06);
+  }
+}
