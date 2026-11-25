@@ -203,8 +203,24 @@ host static files, so it can't run the admin/API. Netlify could later sit in fro
   pages 200, admin created from env, good login 200, 9 bad logins with changing fake leftmost IPs
   blocked at the 9th (logged as the real IP), another IP still allowed. Test data deleted.
 
+### 2026-11-25 — GitHub + Netlify address
+- Privacy scan before the first push: no emails, passwords, keys, tokens or personal paths in tracked
+  files; server/data, .env, node_modules, dist ignored. The commit author email was changed to the
+  GitHub noreply address (repo-local git config). Added README.md.
+- Security check: npm audit 0; all admin writes guarded (session + X-UIC-Admin); Markdown sanitized
+  (DOMPurify); upload names strictly matched; uploads served with a sandbox CSP; API `no-store`.
+- Pushed to the private repo RiajulHaqueShuvo/UIcomponents (main). Render deployed from it.
+- Decision: **Netlify as a free front address** for the Render server (user choice, option 1).
+  `netlify.toml` forwards `/*` to Render with `signed = "UIC_PROXY_SECRET"`. New `server/src/proxy.ts`
+  checks Netlify's HS256 `X-Nf-Sign` (PROXY_SIGNATURE_SECRET); unsigned GETs → 301 to SITE_URL,
+  unsigned writes → 403, `/api/health` exempt; login limit uses `X-Nf-Client-Connection-Ip` on
+  signed requests. Off until the secret is set, so the Render deploy keeps working meanwhile.
+- Tests (local production run): direct GET 301 with path + query kept, direct POST 403, health 200,
+  valid signature 200, wrong secret / expired / garbage token 301, 9 signed bad logins from one
+  Netlify-reported IP with changing X-Forwarded-For blocked at the 9th, canonical uses SITE_URL.
+
 ## Next up (pick from ROADMAP.md)
-- Push to GitHub, create the Render Blueprint, set SITE_URL + first admin (ADMIN.md §5)
+- Netlify setup (ADMIN.md §5b): Render address in netlify.toml, secret in both hosts, SITE_URL
 - Change the temporary local admin password, then add real content
 - Open Graph share image, backups of the Render disk
 - Phase 4b: real Pro sales (payment provider, accounts, server check)

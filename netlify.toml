@@ -1,0 +1,18 @@
+# Netlify = free *.netlify.app address in front of the Render server.
+# Netlify builds nothing: it forwards every request to Render and signs it
+# (X-Nf-Sign, made with the UIC_PROXY_SECRET variable set in Netlify).
+# The Render server checks that signature (PROXY_SIGNATURE_SECRET, same value).
+
+[build]
+  publish = "netlify"
+  command = "echo 'Proxy only: nothing to build'"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+[[redirects]]
+  from = "/*"
+  to = "RENDER_URL/:splat"
+  status = 200
+  force = true
+  signed = "UIC_PROXY_SECRET"

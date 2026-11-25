@@ -92,12 +92,34 @@ Notes
   `NODE_ENV=production DATA_DIR=<persistent folder> SITE_URL=https://… npm start`.
   Keep the `src/` folder: the SEO pages read component names from `src/library`.
 
+## 5b. Free Netlify address in front of Render
+
+Visitors use `https://<name>.netlify.app`; Netlify forwards every request to Render and signs it.
+Render then sends anyone who opens the `onrender.com` address directly over to the Netlify one.
+
+1. `netlify.toml` (repo root): `to = "https://<name>.onrender.com/:splat"` must hold your Render address.
+2. Make one long random secret (40+ characters) and keep it private. It goes in two places:
+   - Netlify → Site configuration → Environment variables: `UIC_PROXY_SECRET`
+   - Render → Environment: `PROXY_SIGNATURE_SECRET`
+3. Netlify → Add new site → Import an existing project → GitHub → `UIcomponents` → Deploy
+   (nothing to build; the settings come from `netlify.toml`). Optional: Site settings → change
+   site name, e.g. `uicomponents.netlify.app`.
+4. Render → Environment: `SITE_URL=https://<name>.netlify.app` → Save (redeploys).
+5. Check: the Netlify address shows the site and `/admin` logs in; the onrender.com address
+   redirects to Netlify.
+
+How it's protected: without the secret, Render can't tell Netlify's requests from anyone else's.
+With it, only signed requests are served; the login limit uses the visitor IP that Netlify reports.
+`/api/health` stays open for Render's health check. If you change the secret, change it in both places.
+
 ## 6. Files
 ```
 server/src/index.ts        server entry (API + static site in production)
 server/src/db.ts           SQLite schema + migrations (add new migrations at the end)
 server/src/auth.ts         passwords, sessions, guards, login rate limit
 server/src/compile.ts      React upload compiler (esbuild) + preview page
+server/src/proxy.ts        Netlify signed-proxy check (PROXY_SIGNATURE_SECRET)
+netlify.toml               Netlify forwarding config (free *.netlify.app address)
 server/src/routes/         auth, components, documents, media, site (settings, public feed)
 server/scripts/create-admin.ts
 src/admin/                 admin UI (lazy-loaded chunk)

@@ -11,6 +11,7 @@ import { componentRoutes } from './routes/components.ts';
 import { documentRoutes } from './routes/documents.ts';
 import { mediaRoutes, serveUpload } from './routes/media.ts';
 import { siteRoutes } from './routes/site.ts';
+import { isSignedByProxy, proxyGuardOn } from './proxy.ts';
 import { renderPage, robots, sitemap } from './seo.ts';
 
 const router = new Router();
@@ -117,8 +118,16 @@ const server = createServer(async (req, res) => {
   baseHeaders(res);
 
   try {
-    ctx.user = userFromRequest(ctx);
     const path = ctx.url.pathname;
+    // Behind Netlify: requests that skipped Netlify go to the public address instead.
+    if (proxyGuardOn && path !== '/api/health' && !isSignedByProxy(req)) {
+      if (config.siteUrl && (req.method === 'GET' || req.method === 'HEAD')) {
+        res.writeHead(301, { Location: config.siteUrl + (req.url ?? '/'), 'Cache-Control': 'no-store' });
+        return void res.end();
+      }
+      throw new HttpError(403, 'Use the public address of this site');
+    }
+    ctx.user = userFromRequest(ctx);
     if (path.startsWith('/api/')) {
       res.setHeader('X-Robots-Tag', 'noindex');
       if (!(await router.handle(ctx))) throw new HttpError(404, 'Not found');
@@ -142,6 +151,7 @@ server.requestTimeout = 60_000;
 
 server.listen(config.port, () => {
   console.log(`UIComponents API on http://localhost:${config.port}  (data: ${config.dataDir})`);
+  if (proxyGuardOn) console.log(`  Netlify proxy guard on: direct visits redirect to ${config.siteUrl || '(set SITE_URL!)'}`);
   if (config.production && !config.siteUrl) {
     console.warn('  ⚠ Set SITE_URL (e.g. https://your-domain.com) so SEO links use your real address.');
   }

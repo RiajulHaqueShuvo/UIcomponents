@@ -2,13 +2,14 @@ import { checkLoginRate, clearLoginRate, createSession, destroySession, verifyPa
 import { config } from '../config.ts';
 import { db } from '../db.ts';
 import { HttpError, clientIp, readJson, type Router } from '../http.ts';
+import { isSignedByProxy, proxyClientIp } from '../proxy.ts';
 
 // Compared against when the email doesn't exist, so response time doesn't reveal valid emails.
 const DUMMY_HASH = 'scrypt$16384$AAAAAAAAAAAAAAAAAAAAAA==$' + Buffer.alloc(64).toString('base64');
 
 export function authRoutes(r: Router) {
   r.post('/api/auth/login', async (ctx) => {
-    const ip = clientIp(ctx.req, config.trustProxy);
+    const ip = (isSignedByProxy(ctx.req) && proxyClientIp(ctx.req)) || clientIp(ctx.req, config.trustProxy);
     const body = await readJson(ctx.req, 10_000);
     const email = typeof body.email === 'string' ? body.email.trim().slice(0, 254) : '';
     const password = typeof body.password === 'string' ? body.password.slice(0, 1024) : '';
