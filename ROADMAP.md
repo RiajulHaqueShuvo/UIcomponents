@@ -123,7 +123,8 @@ Steps
 ## Phase 6 — Launch (🚧)
 - ✅ Deploy setup for Render: `render.yaml`, health check, persistent disk, first admin from env (2026-11-25)
 - ✅ Pushed to GitHub (private) + Render deploy (2026-11-25)
-- 🚧 Free Netlify address in front of Render, signed proxy (2026-11-25)
+- ✅ Free Netlify front address for Render, signed proxy (built, not connected)
+- 🚧 Public static version on GitHub Pages: workflow + per-page SEO export (2026-11-25)
 - ⏳ Set SITE_URL, submit sitemap to Google
 - ⏳ Custom domain, Open Graph image, analytics, disk backups
 - Optional: Pro tier / paid blocks (needs a business decision)

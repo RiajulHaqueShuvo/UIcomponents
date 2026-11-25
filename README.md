@@ -4,6 +4,8 @@ A library of animated UI components (text effects, animations, backgrounds, butt
 with live previews, copy-ready code (React and HTML/CSS/JS), a Pro "Customize" playground, a Color
 Palette Studio, and an admin panel with its own Node backend.
 
+Live (static version): https://riajulhaqueshuvo.github.io/UIcomponents/
+
 ## Run locally
 ```
 npm install

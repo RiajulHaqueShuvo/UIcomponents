@@ -3,7 +3,9 @@ import react from '@vitejs/plugin-react';
 
 const API = `http://localhost:${process.env.API_PORT ?? 5621}`;
 
+// BASE_PATH=/UIcomponents/ for GitHub Pages (npm run build:pages); '/' everywhere else.
 export default defineConfig({
+  base: process.env.BASE_PATH ?? '/',
   plugins: [react()],
   server: {
     port: 5620,

@@ -34,6 +34,9 @@ interface Page {
   body: string;
 }
 
+/** Prefix for links inside the fallback HTML (static hosting under a sub-path). */
+const B = config.basePath.replace(/[&<>"']/g, "");
+
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
@@ -137,10 +140,10 @@ async function resolvePage(pathname: string): Promise<Page> {
         .map(
           (g) =>
             `<h2>${esc(g.label)}</h2><ul>${g.items
-              .map((i) => `<li><a href="/components/${esc(i.slug)}">${esc(i.name)}</a> — ${esc(i.description)}</li>`)
+              .map((i) => `<li><a href="${B}/components/${esc(i.slug)}">${esc(i.name)}</a> — ${esc(i.description)}</li>`)
               .join('')}</ul>`
         )
-        .join('')}<p><a href="/palette">Color Palette Studio</a></p>`,
+        .join('')}<p><a href="${B}/palette">Color Palette Studio</a></p>`,
     };
   }
 
@@ -176,12 +179,12 @@ async function resolvePage(pathname: string): Promise<Page> {
             ],
           },
         ],
-        body: `<nav><a href="/">Components</a> / ${esc(catLabel(item.category))}</nav><h1>${esc(item.name)}</h1><p>${esc(
+        body: `<nav><a href="${B}/">Components</a> / ${esc(catLabel(item.category))}</nav><h1>${esc(item.name)}</h1><p>${esc(
           item.description
         )}</p><p>Available in ${esc(langs)}, with live preview, source code and usage.</p>${
           related.length
             ? `<h2>More ${esc(catLabel(item.category))}</h2><ul>${related
-                .map((r) => `<li><a href="/components/${esc(r.slug)}">${esc(r.name)}</a></li>`)
+                .map((r) => `<li><a href="${B}/components/${esc(r.slug)}">${esc(r.name)}</a></li>`)
                 .join('')}</ul>`
             : ''
         }`,
@@ -230,7 +233,7 @@ async function resolvePage(pathname: string): Promise<Page> {
     path,
     noindex: true,
     type: 'website',
-    body: `<h1>Page not found</h1><p><a href="/">Back to all components</a></p>`,
+    body: `<h1>Page not found</h1><p><a href="${B}/">Back to all components</a></p>`,
   };
 }
 

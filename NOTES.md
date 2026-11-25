@@ -219,8 +219,27 @@ host static files, so it can't run the admin/API. Netlify could later sit in fro
   valid signature 200, wrong secret / expired / garbage token 301, 9 signed bad logins from one
   Netlify-reported IP with changing X-Forwarded-For blocked at the 9th, canonical uses SITE_URL.
 
+### 2026-11-25 — Public version on GitHub Pages
+Decision (user): uploading to Netlify/Render didn't work out, so publish the frontend from GitHub.
+GitHub Pages is static, so this is the **static version**: built-in library, palette, Customize demo.
+Admin, uploads and docs stay for the Node version (Render/Netlify setup kept, unused for now).
+- `src/app/env.ts`: `BASE` (Vite base, `/UIcomponents`) and `STATIC` (`VITE_STATIC=1`). Router
+  `basename`, hash-link redirect, palette share link and canonical URLs use BASE. Static mode skips
+  the `/api` call and shows a note instead of the admin.
+- `vite.config.ts` base from `BASE_PATH`. Server SEO fallback links get `config.basePath`.
+- `scripts/export-pages.ts` (+ `npm run build:pages`): renders every sitemap page through the server's
+  SEO renderer into `components/<slug>.html` etc. (Pages serves them without a redirect), `404.html`,
+  `sitemap.xml`, `.nojekyll`. Uses a throwaway empty database.
+- `.github/workflows/pages.yml`: Node 24, `npm ci`, build:pages, deploy-pages on push to main.
+- Tests: 29 pages + 404 + sitemap exported with per-page title/canonical and `/UIcomponents/` assets;
+  browser through a Pages-like local server: component pages, sidebar links, palette share URL,
+  HTML variant iframe, Customize tab, 404 page, old `#/` link redirect, admin note, no `/api` calls,
+  no errors besides the two intended 404 pages.
+- Note: a public repo makes the code readable; the Pro demo unlock was already browser-only.
+
 ## Next up (pick from ROADMAP.md)
-- Netlify setup (ADMIN.md §5b): Render address in netlify.toml, secret in both hosts, SITE_URL
+- Make the repo public + enable Pages (ADMIN.md §4b), then submit the sitemap to Google
+- Later, for admin online: Render (+ optional Netlify, §5/§5b)
 - Change the temporary local admin password, then add real content
 - Open Graph share image, backups of the Render disk
 - Phase 4b: real Pro sales (payment provider, accounts, server check)

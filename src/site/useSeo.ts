@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { BASE } from '../app/env';
 import { useSiteData } from '../data/context';
 
 interface Seo {
@@ -41,7 +42,7 @@ export function useSeo({ title, description, path, noindex }: Seo) {
 
   useEffect(() => {
     const full = title === settings.siteName ? title : `${title} — ${settings.siteName}`;
-    const url = `${window.location.origin}${path ?? window.location.pathname}`;
+    const url = path ? `${window.location.origin}${BASE}${path}` : `${window.location.origin}${window.location.pathname}`;
     document.title = full;
     setMeta('name', 'description', desc);
     setMeta('name', 'robots', noindex ? 'noindex, nofollow' : 'index, follow');

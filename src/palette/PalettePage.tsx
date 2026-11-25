@@ -1,3 +1,4 @@
+import { BASE } from '../app/env';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ExportPanel from './ExportPanel';
@@ -46,7 +47,7 @@ export default function PalettePage() {
   const theme = useMemo(() => themeOf(palette), [palette]);
   const autoText = useMemo(() => themeOf({ ...palette, text: null }).text, [palette]);
   const insights = useMemo(() => insightsOf(palette, theme), [palette, theme]);
-  const shareUrl = `${window.location.origin}/palette?${encoded}`;
+  const shareUrl = `${window.location.origin}${BASE}/palette?${encoded}`;
 
   return (
     <div className="pal">

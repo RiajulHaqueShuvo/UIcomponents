@@ -53,6 +53,25 @@ Shortcuts: **Ctrl+S** saves in every editor. Leaving a page with unsaved changes
 - Documents are sanitized before display (scripts and event handlers are removed).
 - Media: only an allow-list of file types; SVGs are served with a locked-down policy.
 
+## 4b. Free public version — GitHub Pages (no server)
+
+Address: **https://riajulhaqueshuvo.github.io/UIcomponents/**
+
+What works there: every built-in component (preview, code, React/HTML switch), the Color Palette
+Studio and the Customize demo. What doesn't: the admin panel, uploaded components and documents
+(they need the Node server in §5). Each component still gets its own SEO page and the sitemap.
+
+One-time setup (GitHub website):
+1. Repository → Settings → General → Danger Zone → **Change visibility → Public**
+   (free accounts can only use Pages on public repositories; the code becomes readable by anyone).
+2. Repository → Settings → **Pages** → Build and deployment → Source: **GitHub Actions**.
+3. Actions tab → "Deploy to GitHub Pages" → **Run workflow** (later, every push to main deploys).
+
+Build it yourself: `npm run build:pages` with `VITE_STATIC=1`, `BASE_PATH=/UIcomponents/` and
+`SITE_URL=https://riajulhaqueshuvo.github.io/UIcomponents` (in Git Bash also `MSYS_NO_PATHCONV=1`).
+`scripts/export-pages.ts` writes one HTML file per page (`components/<slug>.html`), `404.html`
+and `sitemap.xml` into `dist/`. Workflow: `.github/workflows/pages.yml`.
+
 ## 5. Deploying (online) — Render
 
 The project runs as **one Node 24 server** that serves the built site and the API.

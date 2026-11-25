@@ -25,6 +25,8 @@ export const config = {
   trustProxy: Math.max(0, Math.min(5, Number.parseInt(process.env.TRUST_PROXY ?? '0', 10) || 0)),
   /** Public address, e.g. https://uicomponents.com. Used for SEO links; falls back to the request's host. */
   siteUrl: (process.env.SITE_URL ?? '').replace(/\/+$/, ''),
+  /** Path prefix for static hosting (GitHub Pages: /UIcomponents). Empty on our own server. */
+  basePath: (process.env.BASE_PATH ?? '').replace(/\/+$/, ''),
   distDir: join(ROOT, 'dist'),
   sessionDays: 7,
   maxJsonBytes: 2 * 1024 * 1024,

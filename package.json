@@ -12,7 +12,8 @@
     "new": "node scripts/new-component.mjs",
     "typecheck": "tsc --noEmit && tsc --noEmit -p server",
     "build": "tsc --noEmit && tsc --noEmit -p server && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:pages": "tsc --noEmit && vite build && node scripts/export-pages.ts"
   },
   "dependencies": {
     "dompurify": "^3.5.0",

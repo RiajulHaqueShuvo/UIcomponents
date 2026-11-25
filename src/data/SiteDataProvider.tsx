@@ -5,6 +5,7 @@ import type { Category, CategoryId, RegistryEntry, SourceFile, Variant } from '.
 import { api, type PublicSite, type ServerComponent } from './api';
 import { SiteDataContext, type SiteData } from './context';
 import { DEFAULT_SETTINGS } from './siteDefaults';
+import { STATIC } from '../app/env';
 
 const pascal = (slug: string) =>
   slug
@@ -47,10 +48,12 @@ export function fromServer(c: ServerComponent): RegistryEntry {
 
 export default function SiteDataProvider({ children }: { children: ReactNode }) {
   const [remote, setRemote] = useState<PublicSite | null>(null);
-  const [status, setStatus] = useState<SiteData['status']>('loading');
+  // Static hosting (GitHub Pages) has no server: show the built-in library straight away.
+  const [status, setStatus] = useState<SiteData['status']>(STATIC ? 'offline' : 'loading');
   const [version, setVersion] = useState(0);
 
   useEffect(() => {
+    if (STATIC) return;
     let cancelled = false;
     api<PublicSite>('GET', '/api/public/site')
       .then((data) => {
